@@ -1,8 +1,8 @@
-// AiEsp32RotaryEncoder.h
+// AiAvrRotaryEncoder.h
 // based on https://github.com/marcmerlin/IoTuz code - extracted and modified Encoder code
 
-#ifndef _AIESP32ROTARYENCODER_h
-#define _AIESP32ROTARYENCODER_h
+#ifndef _AiAvrRotaryEncoder_h
+#define _AiAvrRotaryEncoder_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
@@ -11,11 +11,11 @@
 #endif
 
 // Rotary Encocer
-#define AIESP32ROTARYENCODER_DEFAULT_A_PIN 25
-#define AIESP32ROTARYENCODER_DEFAULT_B_PIN 26
-#define AIESP32ROTARYENCODER_DEFAULT_BUT_PIN 15
-#define AIESP32ROTARYENCODER_DEFAULT_VCC_PIN -1
-#define AIESP32ROTARYENCODER_DEFAULT_STEPS 2
+#define AiAvrRotaryEncoder_DEFAULT_A_PIN 25
+#define AiAvrRotaryEncoder_DEFAULT_B_PIN 26
+#define AiAvrRotaryEncoder_DEFAULT_BUT_PIN 15
+#define AiAvrRotaryEncoder_DEFAULT_VCC_PIN -1
+#define AiAvrRotaryEncoder_DEFAULT_STEPS 2
 
 typedef enum
 {
@@ -26,15 +26,11 @@ typedef enum
 	BUT_DISABLED = 99,
 } ButtonState;
 
-class AiEsp32RotaryEncoder
+class AiAvrRotaryEncoder
 {
 
 private:
-#if defined(ESP8266)
-#else
-	portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
-	portMUX_TYPE buttonMux = portMUX_INITIALIZER_UNLOCKED;
-#endif
+
 	volatile long encoder0Pos = 0;
 
 	volatile int8_t lastMovementDirection = 0; //1 right; -1 left
@@ -44,11 +40,11 @@ private:
 	bool _circleValues = false;
 	bool isEnabled = true;
 
-	uint8_t encoderAPin = AIESP32ROTARYENCODER_DEFAULT_A_PIN;
-	uint8_t encoderBPin = AIESP32ROTARYENCODER_DEFAULT_B_PIN;
-	uint8_t encoderButtonPin = AIESP32ROTARYENCODER_DEFAULT_BUT_PIN;
-	uint8_t encoderVccPin = AIESP32ROTARYENCODER_DEFAULT_VCC_PIN;
-	long encoderSteps = AIESP32ROTARYENCODER_DEFAULT_STEPS;
+	uint8_t encoderAPin = AiAvrRotaryEncoder_DEFAULT_A_PIN;
+	uint8_t encoderBPin = AiAvrRotaryEncoder_DEFAULT_B_PIN;
+	uint8_t encoderButtonPin = AiAvrRotaryEncoder_DEFAULT_BUT_PIN;
+	uint8_t encoderVccPin = AiAvrRotaryEncoder_DEFAULT_VCC_PIN;
+	long encoderSteps = AiAvrRotaryEncoder_DEFAULT_STEPS;
 
 	long _minEncoderValue = -1 << 15;
 	long _maxEncoderValue = 1 << 15;
@@ -64,21 +60,17 @@ private:
 	void (*ISR_button)();
 
 public:
-	AiEsp32RotaryEncoder(
-		uint8_t encoderAPin = AIESP32ROTARYENCODER_DEFAULT_A_PIN,
-		uint8_t encoderBPin = AIESP32ROTARYENCODER_DEFAULT_B_PIN,
-		uint8_t encoderButtonPin = AIESP32ROTARYENCODER_DEFAULT_BUT_PIN,
-		uint8_t encoderVccPin = AIESP32ROTARYENCODER_DEFAULT_VCC_PIN,
-		uint8_t encoderSteps = AIESP32ROTARYENCODER_DEFAULT_STEPS);
+	AiAvrRotaryEncoder(
+		uint8_t encoderAPin = AiAvrRotaryEncoder_DEFAULT_A_PIN,
+		uint8_t encoderBPin = AiAvrRotaryEncoder_DEFAULT_B_PIN,
+		uint8_t encoderButtonPin = AiAvrRotaryEncoder_DEFAULT_BUT_PIN,
+		uint8_t encoderVccPin = AiAvrRotaryEncoder_DEFAULT_VCC_PIN,
+		uint8_t encoderSteps = AiAvrRotaryEncoder_DEFAULT_STEPS);
 	void setBoundaries(long minValue = -100, long maxValue = 100, bool circleValues = false);
-#if defined(ESP8266)
-	ICACHE_RAM_ATTR void readEncoder_ISR();
-	ICACHE_RAM_ATTR void readButton_ISR();
-#else
-	void IRAM_ATTR readEncoder_ISR();
-	void IRAM_ATTR readButton_ISR();
 
-#endif
+	void  readEncoder_ISR();
+	void  readButton_ISR();
+
 
 	void setup(void (*ISR_callback)(void));
 	void setup(void (*ISR_callback)(void), void (*ISR_button)(void));

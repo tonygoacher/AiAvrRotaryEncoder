@@ -1,6 +1,6 @@
 # Intro
 
-Use this library to connect and use a rotary encoder with ESP32 or ESP8266.
+Use this library to connect and use a rotary encoder with Arduino
 
 But it is a bit more than just that. **Strongly recomended is to try a few included examples to see how it works.**
 
@@ -19,29 +19,6 @@ You can also use a button. Version 1.3 and above has significant changes after I
 For compatibility older examples still works but will become obsolete soon.
 
 
-# Support fot ESP8266 added 10/2021
-
-Support added also for ESP8266
-
-# Changes in button processing 10/2021
-
-Old button using interrupt is now obsolete.
-Please look at upadated examples how to handle click, properly initialize encoder and avoid crashing.
-
-# New feature added 02/2021 - accelerated movement
-
-In case a range to select is large, for example - select a value between 0 and 1000 and we want 785, without accelerateion you need long time to get to that number.
-However using new implemented acceleration, faster you turn, faster will the value raise.For fine tuning just slow down.
-In new example imagine any random naumber between 1 and 1000 and try to select it as fast as you can using example code, and after that disable acceleration and try again.
-
-rotaryEncoder.setAcceleration(250); 
-this will set acceleration; larger number = more accelearation; 0 or 1 means disabled acceleration
-
-
-rotaryEncoder.disableAcceleration(); 
-This will disable acceleration (now enabled by default) in case you dont need one.
-
-Recomendation - turn off for small ranges; but turn on when you select from more than 50 values in range.
 
 
 # Arduino Esp32 Encoder Library
@@ -70,7 +47,7 @@ Restart the Arduino IDE and follow the examples located at
 
      File -> Examples -> Ai Esp32 Rotary Encoder
 
-## Connecting Rotary Encoder Module to your microcontroller ESP32, ESP8266 (or similar)
+## Connecting Rotary Encoder Module to your microcontroller 
 
 This are instructions for "Rotary Encoder Module" which is actually Rotary Encoder with 2 resistors on board.  
 

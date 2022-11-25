@@ -4,14 +4,14 @@ This project is based on the (https://github.com/igorantolic/ai-esp32-rotary-enc
 multiple instances on encoders. Original library supported only one instance, but this project allows you to create more instance of encoders like this:
 
 ```c
-#include "AiEsp32RotaryEncoder.h"
+#include "AiAvrRotaryEncoder.h"
 #define ROTARY_ENCODER2_A_PIN GPIO_NUM_16
 #define ROTARY_ENCODER2_B_PIN GPIO_NUM_4
 #define ROTARY_ENCODER1_A_PIN GPIO_NUM_17
 #define ROTARY_ENCODER1_B_PIN GPIO_NUM_5
 
-AiEsp32RotaryEncoder rotaryEncoder1 = AiEsp32RotaryEncoder(ROTARY_ENCODER1_A_PIN, ROTARY_ENCODER1_B_PIN, -1, -1);
-AiEsp32RotaryEncoder rotaryEncoder2 = AiEsp32RotaryEncoder(ROTARY_ENCODER2_A_PIN, ROTARY_ENCODER2_B_PIN, -1, -1);
+AiAvrRotaryEncoder rotaryEncoder1 = AiAvrRotaryEncoder(ROTARY_ENCODER1_A_PIN, ROTARY_ENCODER1_B_PIN, -1, -1);
+AiAvrRotaryEncoder rotaryEncoder2 = AiAvrRotaryEncoder(ROTARY_ENCODER2_A_PIN, ROTARY_ENCODER2_B_PIN, -1, -1);
 ```
 
 in setup() of arduino:
@@ -91,7 +91,7 @@ Further pressing button will double the same limit to -4 ... 4. Then -8...8 and 
 ### step 1) include library using 
 
 ```c
-#include "AiEsp32RotaryEncoder.h"
+#include "AiAvrRotaryEncoder.h"
 ```
 
 ### step 2) set pins used. Important: A and B pins must support interrupts.
@@ -109,7 +109,7 @@ Further pressing button will double the same limit to -4 ... 4. Then -8...8 and 
 ### step 3) declare your variable like rotaryEncoder
 
 ```c
-AiEsp32RotaryEncoder rotaryEncoder = AiEsp32RotaryEncoder(
+AiAvrRotaryEncoder rotaryEncoder = AiAvrRotaryEncoder(
     ROTARY_ENCODER_A_PIN, 
     ROTARY_ENCODER_B_PIN, 
     ROTARY_ENCODER_BUTTON_PIN, 
@@ -210,14 +210,14 @@ Call to define local variable. 4 parameters are pin numbers.
 #define ROTARY_ENCODER_BUTTON_PIN 25
 #define ROTARY_ENCODER_VCC_PIN 27
 
-AiEsp32RotaryEncoder rotaryEncoder = AiEsp32RotaryEncoder(
+AiAvrRotaryEncoder rotaryEncoder = AiAvrRotaryEncoder(
 	ROTARY_ENCODER_A_PIN, 
 	ROTARY_ENCODER_B_PIN, 
 	ROTARY_ENCODER_BUTTON_PIN, 
 	ROTARY_ENCODER_VCC_PIN
 	);
 //or empty constructor
-AiEsp32RotaryEncoder rotaryEncoder = AiEsp32RotaryEncoder();
+AiAvrRotaryEncoder rotaryEncoder = AiAvrRotaryEncoder();
 /* Note: in case of empty constructor these are fefault pins:
 #define ROTARY_ENCODER_A_PIN 32
 #define ROTARY_ENCODER_B_PIN 21

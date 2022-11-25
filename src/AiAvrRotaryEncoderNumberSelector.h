@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
-#include "AiEsp32RotaryEncoder.h"
+#include "AiAvrRotaryEncoder.h"
 /*
 setRange (float min, max, step)
     100,500,25
@@ -14,22 +14,22 @@ realValue = value*step   -> 6*25 =150
 */
 //#define DEBUG_NUM_SEL
 
-class AiEsp32RotaryEncoderNumberSelector
+class AiAvrRotaryEncoderNumberSelector
 {
 private:
     float minValue = 0;
     float maxValue = 100;
     float step = 2;
     float coeficient = 1;
-    AiEsp32RotaryEncoder *encoder;
+    AiAvrRotaryEncoder *encoder;
 
 public:
-    AiEsp32RotaryEncoderNumberSelector(AiEsp32RotaryEncoder *encoderInstance = NULL)
+    AiAvrRotaryEncoderNumberSelector(AiAvrRotaryEncoder *encoderInstance = NULL)
     {
         encoder = encoderInstance;
     }
 
-    void attachEncoder(AiEsp32RotaryEncoder *encoderInstance = NULL)
+    void attachEncoder(AiAvrRotaryEncoder *encoderInstance = NULL)
     {
         encoder = encoderInstance;
     }
